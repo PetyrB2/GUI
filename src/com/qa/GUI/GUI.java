@@ -3,6 +3,7 @@ package com.qa.GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.management.monitor.MonitorSettingException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +13,15 @@ import javax.swing.JTextField;
 
 public class GUI implements ActionListener {
 
+	private static JLabel userLabel;
+	private static JTextField userText;
+	private static JLabel passLabel;
+	private static JPasswordField passText;
+	private static JButton button;
+	private static JLabel success;
+	private static JLabel notesLabel;
+	
+	
 	public static void main(String[] args) {
 
 		// beginnersbooks.com
@@ -31,41 +41,56 @@ public class GUI implements ActionListener {
 		panel.setLayout(null);
 		
 		// Create and set up user Label
-		JLabel userLabel = new JLabel("Username");
+		userLabel = new JLabel("Username");
 		userLabel.setBounds(10, 20, 80, 25);
 		panel.add(userLabel);
 		
 		// Create and set up Password Label
-		JLabel passLabel = new JLabel("Password");
+		passLabel = new JLabel("Password");
 		passLabel.setBounds(10, 50, 80, 25);
 		panel.add(passLabel);
 		
 		// Text Field & Password Field
-		JTextField userText = new JTextField(20);
+		userText = new JTextField(20);
 		userText.setBounds(100, 20, 165, 25);
 		panel.add(userText);
 		
-		JPasswordField passText = new JPasswordField(20);
+		passText = new JPasswordField(20);
 		passText.setBounds(100, 50, 165, 25);
 		panel.add(passText);
 		
 		// Set up Button
-		JButton button = new JButton("Login");
+		button = new JButton("Login");
 		button.setBounds(10, 80, 80, 25);
 		button.addActionListener(new GUI());
 		panel.add(button);
 		
-		JLabel success = new JLabel("");
+		success = new JLabel("");
 		success.setBounds(10, 110, 300, 25);
 		
 		panel.add(success);
 
+		// Create and set up notes Label
+		notesLabel = new JLabel("Hint: Admin, Password");
+		notesLabel.setBounds(10, 130, 300, 25);
+		panel.add(notesLabel);
 		
 		frame.setVisible(true);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Push my Buttons");
+		String user = userText.getText();
+		String password = passText.getText();
+
+		System.out.println(user + "," + password);
+		
+		if(user.equals("Admin") && password.equals("Password")) {
+			success.setText("Login Successful !");
+		}
+		else {
+			success.setText("Login FAILED !");
+		}
+		
 	}
 }
